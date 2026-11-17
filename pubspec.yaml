@@ -1,5 +1,5 @@
 name: m21_sales_app
-description: "A new Flutter project."
+description: "M21 Sales Force Automation (SFA) Mobile Application"
 publish_to: 'none'
 version: 0.1.0+1
 
@@ -9,6 +9,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # State Management
+  provider: ^6.1.2
+  # HTTP & Networking
+  dio: ^5.7.0
+  # Persistent Local Storage
+  shared_preferences: ^2.3.3
+  # GPS & Geolocation
+  geolocator: ^13.0.2
+  # Camera & Gallery Picker
+  image_picker: ^1.1.2
+  # Formatting (Currency, Date)
+  intl: ^0.19.0
+  # Interactive OpenStreetMap Map & Geometry
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
 
 dev_dependencies:
   flutter_test:
