@@ -119,7 +119,7 @@ flowchart TD
 ## 4. KEBUTUHAN FUNGSIONAL SISTEM (FUNCTIONAL REQUIREMENTS)
 
 ### 4.1 Modul Autentikasi & Akun (AUTH)
-- **FR-AUTH-01:** Sistem menyediakan fitur login menggunakan kredensial (Username/Email & Password).
+- **FR-AUTH-01:** Sistem menyediakan fitur login menggunakan kredensial (Username & Password, tanpa menggunakan email).
 - **FR-AUTH-02:** Sistem menerapkan mekanisme Role-Based Routing setelah login (Sales diarahkan ke antarmuka operasional mobile, Admin diarahkan ke antarmuka manajerial/dashboard).
 - **FR-AUTH-03:** Admin dapat mengubah informasi nama dan profil akun sales untuk keperluan suksesi/penggantian sales baru tanpa memutus riwayat toko.
 
@@ -181,10 +181,11 @@ sequenceDiagram
 - **FR-ORD-02:** Untuk setiap item barang, sales menentukan:
   - Satuan yang dipesan: pilihan `pcs`, `pack`, atau `box`.
   - Jumlah kuantitas (*Quantity*).
-  - Opsi *Permintaan Diskon* (default bernilai 0 / tanpa permintaan diskon, dapat diisi persentase/nominal sesuai permohonan toko).
+  - Opsi *Permintaan Diskon*: berupa tombol sakelar / *toggle on-off* (default: *OFF* / `false`). Sales **tidak menginput persentase diskon**. Jika tombol diaktifkan (*ON* / `true`), pesanan tersebut memberikan sinyal khusus kepada Admin bahwa toko meminta diskon, sehingga Admin dapat mempertimbangkan dan menginputkan besaran persentase diskon yang disetujui.
 - **FR-ORD-03:** Sistem menghitung kalkulasi harga secara otomatis:
-  $$\text{Subtotal Item} = (\text{Harga Satuan} \times \text{Qty}) - \text{Diskon}$$
+  $$\text{Subtotal Item} = (\text{Harga Satuan} \times \text{Qty}) - \text{Diskon yang disetujui Admin}$$
   $$\text{Grand Total} = \sum \text{Subtotal Item}$$
+  *(Catatan: Sebelum Admin menetapkan persentase diskon untuk item yang di-request, nilai diskon awal adalah Rp 0).*
 - **FR-ORD-04 (Auto-Approved):** Saat pesanan disubmit oleh sales, status pesanan langsung ditetapkan sebagai `Disetujui / Menunggu Pengiriman` tanpa memerlukan verifikasi manual approval.
 - **FR-ORD-05 (Hak Edit & Cancel):** Sales memiliki hak penuh untuk mengubah kuantitas/item pesanan atau membatalkan (*cancel*) pesanan yang telah dikirim kapan saja melalui riwayat pesanan.
 
@@ -212,6 +213,12 @@ sequenceDiagram
 - **FR-ADM-02 (Mobile Admin - Flutter):**
   - Tampilan ringkas metrik penjualan harian (Total Omzet, Total Order, Toko Baru).
   - Monitoring daftar order terbaru dan status tagihan *overdue*.
+- **FR-ADM-03 (Ekspor Laporan ke Excel / XLSX):**
+  - Sistem menyediakan fitur ekspor data dalam format berkas spreadsheet `.xlsx` (Microsoft Excel) melalui Web Dashboard Admin.
+  - Data yang dapat diekspor mencakup:
+    1. Rekapitulasi transaksi penjualan & item pesanan (dengan opsi filter periode tanggal, status order, dan sales penanggung jawab).
+    2. Laporan pembayaran & monitoring piutang jatuh tempo (*Overdue*).
+    3. Daftar data master toko terdaftar beserta pemilik dan sales pembinanya.
 
 ---
 
@@ -230,8 +237,8 @@ erDiagram
 
     USERS {
         bigint id PK
+        string username UK
         string name
-        string email UK
         string password
         enum role "admin, sales"
         enum status "active, inactive"
@@ -291,6 +298,8 @@ erDiagram
         enum unit "pcs, pack, box"
         int quantity
         decimal unit_price
+        boolean is_discount_requested "Toggle ON/OFF oleh Sales"
+        decimal discount_percentage "Dipertimbangkan & diinput Admin"
         decimal discount_amount
         decimal subtotal
     }
@@ -341,6 +350,7 @@ erDiagram
 | **State Management** | Provider / BLoC / Riverpod |
 | **Backend REST API** | **Laravel 11.x (PHP 8.2+)** |
 | **Admin Web Dashboard** | **Laravel Filament v3** |
+| **Excel Export Engine** | `maatwebsite/excel` / Filament Actions Export (`.xlsx`) |
 | **API Authentication** | Laravel Sanctum |
 | **Database** | MySQL 8.0+ |
 | **Scheduled Tasks** | Laravel Task Scheduling (Cron Job untuk kalkulasi status *Overdue*) |
