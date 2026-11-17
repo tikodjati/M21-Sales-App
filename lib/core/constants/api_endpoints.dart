@@ -1,25 +1,38 @@
+import 'package:flutter/foundation.dart';
+import 'dart:io' show Platform;
+
 class ApiEndpoints {
-  // Ganti IP ini sesuai host backend (10.0.2.2 untuk emulator Android, atau IP LAN untuk HP fisik)
-  static const String baseUrl = 'http://10.0.2.2:8000/api';
-  static const String storageUrl = 'http://10.0.2.2:8000/storage';
+  /// Mendeteksi host backend secara otomatis:
+  /// - Android Emulator: 10.0.2.2
+  /// - Windows Desktop / Web Browser: 127.0.0.1
+  static String get host {
+    if (kIsWeb) return '127.0.0.1';
+    try {
+      if (Platform.isAndroid) return '10.0.2.2';
+    } catch (_) {}
+    return '127.0.0.1';
+  }
+
+  static String get baseUrl => 'http://$host:8000/api';
+  static String get storageUrl => 'http://$host:8000/storage';
 
   // Auth
-  static const String login = '$baseUrl/login';
-  static const String logout = '$baseUrl/logout';
-  static const String profile = '$baseUrl/profile';
+  static String get login => '$baseUrl/login';
+  static String get logout => '$baseUrl/logout';
+  static String get profile => '$baseUrl/profile';
 
   // Stores
-  static const String stores = '$baseUrl/stores';
+  static String get stores => '$baseUrl/stores';
   static String storeDetail(int id) => '$baseUrl/stores/$id';
 
   // Visits & Check-in
-  static const String checkIn = '$baseUrl/visits/check-in';
+  static String get checkIn => '$baseUrl/visits/check-in';
 
   // Products
-  static const String products = '$baseUrl/products';
+  static String get products => '$baseUrl/products';
 
   // Orders
-  static const String orders = '$baseUrl/orders';
+  static String get orders => '$baseUrl/orders';
   static String orderDetail(int id) => '$baseUrl/orders/$id';
   static String updateOrder(int id) => '$baseUrl/orders/$id';
   static String cancelOrder(int id) => '$baseUrl/orders/$id/cancel';
