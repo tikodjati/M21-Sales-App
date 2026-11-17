@@ -21,7 +21,7 @@
 Dokumen *Software Requirements Specification* (SRS) ini merinci seluruh spesifikasi fungsional, non-fungsional, dan arsitektur sistem untuk pengembangan **M21 Sales App**. Dokumen ini menjadi acuan tunggal bagi tim pengembang (*software engineering*), penguji (*QA*), dan pihak pemangku kepentingan (*stakeholders*) dalam membangun solusi otomasi penjualan berbasis mobile dan web.
 
 ### 1.2 Ruang Lingkup Sistem (Product Scope)
-M21 Sales App dirancang untuk mengoptimalkan operasional tim penjualan lapangan (*Field Sales / Canvassing / Taking Order*) di PT M21. Sistem ini memfasilitasi:
+M21 Sales App dirancang untuk mengoptimalkan operasional tim penjualan lapangan (*Field Sales / Canvassing / Taking Order*) di PT M21 dengan **wilayah operasional utama di Daerah Istimewa Yogyakarta (DIY)** (mencakup Kota Yogyakarta, Kabupaten Sleman, Kabupaten Bantul, Kabupaten Kulon Progo, dan Kabupaten Gunungkidul). Sistem ini memfasilitasi:
 1. Akuisisi dan pemetaan toko baru (*Customer Acquisition & Geotagging*).
 2. Penerapan kepemilikan toko secara eksklusif (*Exclusive Store-Sales Assignment*) untuk mencegah konflik antar-sales.
 3. Validasi kehadiran fisik sales saat kunjungan (*GPS Geofencing Check-in*).

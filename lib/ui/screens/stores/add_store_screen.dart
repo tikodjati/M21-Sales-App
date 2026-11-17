@@ -51,6 +51,10 @@ class _AddStoreScreenState extends State<AddStoreScreen> {
     if (pos != null) {
       _latController.text = pos.latitude.toString();
       _longController.text = pos.longitude.toString();
+    } else {
+      // Default koordinat wilayah operasional D.I. Yogyakarta (Tugu / Malioboro)
+      _latController.text = '-7.7956000';
+      _longController.text = '110.3695000';
     }
   }
 
@@ -201,7 +205,7 @@ class _AddStoreScreenState extends State<AddStoreScreen> {
                 controller: _storeNameController,
                 decoration: const InputDecoration(
                   labelText: 'Nama Toko *',
-                  hintText: 'Contoh: Toko Berkah Jaya',
+                  hintText: 'Contoh: Toko Berkah Malioboro',
                   prefixIcon: Icon(Icons.store),
                 ),
                 validator: (v) => (v == null || v.trim().isEmpty) ? 'Nama toko wajib diisi' : null,
@@ -213,7 +217,7 @@ class _AddStoreScreenState extends State<AddStoreScreen> {
                 controller: _ownerNameController,
                 decoration: const InputDecoration(
                   labelText: 'Nama Pemilik / PIC *',
-                  hintText: 'Contoh: Bapak H. Ahmad',
+                  hintText: 'Contoh: Bapak H. Ahmad Susanto',
                   prefixIcon: Icon(Icons.person),
                 ),
                 validator: (v) => (v == null || v.trim().isEmpty) ? 'Nama pemilik wajib diisi' : null,
@@ -239,7 +243,7 @@ class _AddStoreScreenState extends State<AddStoreScreen> {
                 maxLines: 2,
                 decoration: const InputDecoration(
                   labelText: 'Alamat Lengkap *',
-                  hintText: 'Nama jalan, nomor, RT/RW, atau patokan lokasi',
+                  hintText: 'Contoh: Jl. Malioboro No. 25, Danurejan, Kota Yogyakarta, DIY',
                   prefixIcon: Icon(Icons.location_city),
                 ),
                 validator: (v) => (v == null || v.trim().isEmpty) ? 'Alamat toko wajib diisi' : null,

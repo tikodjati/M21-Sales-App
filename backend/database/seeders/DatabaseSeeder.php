@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\Hash;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's database with Daerah Istimewa Yogyakarta (DIY) territory.
      */
     public function run(): void
     {
         // 1. Akun Pengguna (Username & Password, tanpa email sesuai SRS)
         $admin = User::create([
             'username' => 'admin',
-            'name' => 'Administrator M21',
+            'name' => 'Administrator M21 Jogja',
             'password' => Hash::make('admin123'),
             'role' => 'admin',
             'status' => 'active',
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
         $sales1 = User::create([
             'username' => 'sales1',
-            'name' => 'Budi Pratama (Sales 1)',
+            'name' => 'Budi Pratama (Sales Jogja Kota & Sleman)',
             'password' => Hash::make('sales123'),
             'role' => 'sales',
             'status' => 'active',
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
 
         $sales2 = User::create([
             'username' => 'sales2',
-            'name' => 'Doni Setiawan (Sales 2)',
+            'name' => 'Doni Setiawan (Sales Bantul & Kulon Progo)',
             'password' => Hash::make('sales123'),
             'role' => 'sales',
             'status' => 'active',
@@ -77,25 +77,47 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        // 3. Sample Toko Binaan (Toko Sales 1 vs Toko Sales 2)
+        // 3. Data Toko Wilayah Operasional Daerah Istimewa Yogyakarta (DIY)
+        // Toko Binaan Sales 1 (Area Kota Jogja & Sleman)
         Store::create([
             'user_id' => $sales1->id,
-            'store_name' => 'Toko Berkah Jaya',
-            'owner_name' => 'Bapak H. Ahmad',
+            'store_name' => 'Toko Sembako Berkah Malioboro',
+            'owner_name' => 'Bapak H. Ahmad Susanto',
             'phone_number' => '081234567890',
-            'address' => 'Jl. Merdeka No. 45, Jakarta Pusat',
-            'latitude' => -6.2088000,
-            'longitude' => 106.8456000,
+            'address' => 'Jl. Malioboro No. 45, Sosromenduran, Gedong Tengen, Kota Yogyakarta, DIY',
+            'latitude' => -7.7928420,
+            'longitude' => 110.3658420,
+        ]);
+
+        Store::create([
+            'user_id' => $sales1->id,
+            'store_name' => 'Kelontong Bu Menik Kaliurang',
+            'owner_name' => 'Ibu Menik Rahayu',
+            'phone_number' => '081398765432',
+            'address' => 'Jl. Kaliurang KM 5.8, Caturtunggal, Depok, Sleman, DIY',
+            'latitude' => -7.7580120,
+            'longitude' => 110.3812400,
+        ]);
+
+        // Toko Binaan Sales 2 (Area Bantul & sekitarnya)
+        Store::create([
+            'user_id' => $sales2->id,
+            'store_name' => 'Minimarket Barokah Mandiri Sewon',
+            'owner_name' => 'Ibu Hj. Siti Aminah',
+            'phone_number' => '089876543210',
+            'address' => 'Jl. Bantul KM 6.5, Panggungharjo, Sewon, Bantul, DIY',
+            'latitude' => -7.8345210,
+            'longitude' => 110.3550180,
         ]);
 
         Store::create([
             'user_id' => $sales2->id,
-            'store_name' => 'Minimarket Barokah Mandiri',
-            'owner_name' => 'Ibu Siti Aminah',
-            'phone_number' => '089876543210',
-            'address' => 'Jl. Diponegoro No. 12, Jakarta Timur',
-            'latitude' => -6.2105000,
-            'longitude' => 106.8520000,
+            'store_name' => 'Toko Murah Rejeki Gejayan',
+            'owner_name' => 'Bapak Bambang Wijaya',
+            'phone_number' => '087712348899',
+            'address' => 'Jl. Affandi (Gejayan) No. 28, Condongcatur, Depok, Sleman, DIY',
+            'latitude' => -7.7712450,
+            'longitude' => 110.3890320,
         ]);
     }
 }
