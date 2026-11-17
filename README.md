@@ -1,4 +1,4 @@
-# 🚀 M21 Sales App
+# M21 Sales App
 
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
@@ -12,7 +12,7 @@ Aplikasi ini mengintegrasikan aplikasi mobile (**Flutter**) untuk sales di lapan
 
 ---
 
-## 📌 Daftar Isi
+## Daftar Isi
 - [Latar Belakang & Tujuan](#-latar-belakang--tujuan)
 - [Fitur Utama](#-fitur-utama)
 - [Aturan Bisnis Kunci](#-aturan-bisnis-kunci)
@@ -23,7 +23,7 @@ Aplikasi ini mengintegrasikan aplikasi mobile (**Flutter**) untuk sales di lapan
 
 ---
 
-## 🎯 Latar Belakang & Tujuan
+## Latar Belakang & Tujuan
 Proses penjualan konvensional seringkali menghadapi kendala berupa duplikasi penawaran antar-sales, ketidakpastian kehadiran sales di toko fisik, serta pencatatan piutang tempo yang sulit dipantau. 
 
 **M21 Sales App** menyelesaikan permasalahan tersebut dengan:
@@ -33,20 +33,20 @@ Proses penjualan konvensional seringkali menghadapi kendala berupa duplikasi pen
 
 ---
 
-## ✨ Fitur Utama
+## Fitur Utama
 
-### 1. 📍 Registrasi & Pemetaan Toko (Store Acquisition)
+### 1. Registrasi & Pemetaan Toko (Store Acquisition)
 - Pendaftaran toko baru langsung dari lapangan: Nama Toko, Pemilik, No. Telepon unik, Alamat, dan 1 Foto Toko.
 - **Dual Geotagging:** Deteksi otomatis koordinat GPS terkini (*Current Location*) atau geser penanda manual (*Pinpoint Marker*) pada peta.
 - **Anti-Duplikasi Global:** Pengecekan otomatis keunikan nomor telepon pemilik toko di sistem.
 - **Peta Teritori Cerdas:** Sales dapat melihat persebaran titik tokonya (akses penuh) dan titik toko milik rekan sales lain (*read-only* penanda wilayah).
 
-### 2. 🛡️ Validasi Kunjungan Lapangan (Geofencing Check-in)
+### 2. Validasi Kunjungan Lapangan (Geofencing Check-in)
 - Tombol **"Mulai Kunjungan"** sebelum membuat order di toko lama.
 - Validasi radius otomatis menggunakan formula *Haversine* ($\le 100\text{ meter}$).
 - Mencegah manipulasi pesanan fiktif dari luar lokasi toko.
 
-### 3. 📦 Pengambilan Pesanan Fleksibel (Taking Order)
+### 3. Pengambilan Pesanan Fleksibel (Taking Order)
 - Katalog produk resmi dikelola terpusat oleh Admin.
 - Pilihan satuan kuantitas: `pcs`, `pack`, atau `box`.
 - **Toggle Sakelar Diskon:** Tombol *ON/OFF* permintaan diskon toko (sales tidak memasukkan persentase; status *ON* menjadi sinyal bagi Admin untuk mengevaluasi dan menetapkan persentase diskon).
@@ -54,19 +54,19 @@ Proses penjualan konvensional seringkali menghadapi kendala berupa duplikasi pen
 - **Sales Flexibility:** Sales berhak mengedit atau membatalkan pesanan yang telah dikirim kapan saja.
 - **Tanpa Batas Stok Klien:** Pemesanan mengadopsi model *pre-order* tanpa pemblokiran stok kosong di aplikasi.
 
-### 4. 💳 Multi-Channel Pembayaran & Pelacakan Piutang
+### 4. Multi-Channel Pembayaran & Pelacakan Piutang
 - **Cash (Tunai):** Pembayaran langsung di tempat.
 - **Tempo 14 Hari (Kredit):** Pembayaran berjangka. Sistem otomatis mendeteksi dan mengubah status menjadi **Overdue** jika lewat dari 14 hari kalender.
 - **Transfer Bank:** Rekening resmi **BRI: 300601003045505** dengan kewajiban unggah foto bukti transfer oleh sales.
 
-### 5. 📊 Dashboard Admin & Ekspor Excel
+### 5. Dashboard Admin & Ekspor Excel
 - Akses ganda: **Web Dashboard (Laravel Filament)** & **Mobile Admin (Flutter)**.
 - Monitoring pesanan masuk, verifikasi bukti transfer, dan filter tagihan *overdue*.
 - **Ekspor Data ke `.xlsx` (Excel):** Unduh rekapitulasi transaksi penjualan, laporan piutang, dan master toko untuk pelaporan manajerial.
 
 ---
 
-## 🔒 Aturan Bisnis Kunci
+## Aturan Bisnis Kunci
 | Kode | Aturan Bisnis | Deskripsi |
 | :--- | :--- | :--- |
 | **BR-01** | *Exclusive Store Assignment* | Satu toko hanya dapat dikelola dan diorder oleh 1 sales penanggung jawab. |
@@ -99,7 +99,7 @@ flowchart LR
 
 ---
 
-## 📂 Struktur Proyek
+## Struktur Proyek
 ```text
 m21_sales_app/
 ├── android/               # Konfigurasi native Android
@@ -114,13 +114,13 @@ m21_sales_app/
 
 ---
 
-## 📖 Dokumentasi Lengkap
+## Dokumentasi Lengkap
 Dokumen spesifikasi teknis dan kebutuhan perangkat lunak lengkap (*Software Requirements Specification*) dapat dibaca pada:
-👉 **[Dokumen SRS M21 Sales App (docs/SRS_M21_Sales_App.md)](docs/SRS_M21_Sales_App.md)**
+**[Dokumen SRS M21 Sales App (docs/SRS_M21_Sales_App.md)](docs/SRS_M21_Sales_App.md)**
 
 ---
 
-## 🚀 Panduan Memulai (Getting Started)
+## Panduan Memulai (Getting Started)
 
 ### Prasyarat
 1. [Flutter SDK](https://docs.flutter.dev/get-started/install) (versi 3.24.0 atau terbaru).
@@ -144,6 +144,6 @@ Dokumen spesifikasi teknis dan kebutuhan perangkat lunak lengkap (*Software Requ
 
 ---
 
-## 👥 Pengembang & Lisensi
+## Pengembang & Lisensi
 Dikembangkan untuk proyek **Praktikum Pemrograman Mobile - PT M21**.  
 Seluruh hak cipta dan ketentuan operasional dimiliki oleh pengembang dan entitas M21.
