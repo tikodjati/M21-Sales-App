@@ -39,23 +39,23 @@ class OrderItemModel {
     return OrderItemModel(
       id: json['id'] is int ? json['id'] : int.tryParse(json['id']?.toString() ?? ''),
       orderId: json['order_id'] is int ? json['order_id'] : int.tryParse(json['order_id']?.toString() ?? ''),
-      productId: json['product_id'] is int ? json['product_id'] : int.parse(json['product_id'].toString()),
-      productName: json['product_name'] ?? json['product']?['product_name'] ?? '',
-      unit: json['unit'] ?? 'pcs',
-      quantity: json['quantity'] is int ? json['quantity'] : int.parse(json['quantity'].toString()),
+      productId: json['product_id'] is int ? json['product_id'] : (int.tryParse(json['product_id']?.toString() ?? '0') ?? 0),
+      productName: json['product_name'] ?? json['product']?['product_name'] ?? 'Produk',
+      unit: json['unit']?.toString() ?? 'pcs',
+      quantity: json['quantity'] is int ? json['quantity'] : (int.tryParse(json['quantity']?.toString() ?? '1') ?? 1),
       unitPrice: (json['unit_price'] is num)
           ? (json['unit_price'] as num).toDouble()
-          : double.tryParse(json['unit_price']?.toString() ?? '0.0') ?? 0.0,
+          : (double.tryParse(json['unit_price']?.toString() ?? '0.0') ?? 0.0),
       isDiscountRequested: json['is_discount_requested'] == 1 || json['is_discount_requested'] == true,
       discountPercentage: (json['discount_percentage'] is num)
           ? (json['discount_percentage'] as num).toDouble()
-          : double.tryParse(json['discount_percentage']?.toString() ?? '0.0') ?? 0.0,
+          : (double.tryParse(json['discount_percentage']?.toString() ?? '0.0') ?? 0.0),
       discountAmount: (json['discount_amount'] is num)
           ? (json['discount_amount'] as num).toDouble()
-          : double.tryParse(json['discount_amount']?.toString() ?? '0.0') ?? 0.0,
+          : (double.tryParse(json['discount_amount']?.toString() ?? '0.0') ?? 0.0),
       subtotal: (json['subtotal'] is num)
           ? (json['subtotal'] as num).toDouble()
-          : double.tryParse(json['subtotal']?.toString() ?? '0.0') ?? 0.0,
+          : (double.tryParse(json['subtotal']?.toString() ?? '0.0') ?? 0.0),
     );
   }
 
@@ -85,6 +85,7 @@ class OrderModel {
   final int? visitId;
   final double totalAmount;
   final String orderStatus; // 'approved', 'processing', 'completed', 'cancelled'
+  final String? notes;
   final DateTime createdAt;
   final List<OrderItemModel> items;
   final PaymentModel? payment;
@@ -99,6 +100,7 @@ class OrderModel {
     this.visitId,
     required this.totalAmount,
     required this.orderStatus,
+    this.notes,
     required this.createdAt,
     this.items = const [],
     this.payment,
@@ -108,26 +110,31 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     var rawItems = json['items'] as List? ?? json['order_items'] as List? ?? [];
-    List<OrderItemModel> itemsList =
-        rawItems.map((e) => OrderItemModel.fromJson(e as Map<String, dynamic>)).toList();
+    List<OrderItemModel> itemsList = rawItems
+        .whereType<Map<String, dynamic>>()
+        .map((e) => OrderItemModel.fromJson(e))
+        .toList();
 
     return OrderModel(
-      id: json['id'] is int ? json['id'] : int.parse(json['id'].toString()),
-      orderNumber: json['order_number'] ?? '',
-      userId: json['user_id'] is int ? json['user_id'] : int.parse(json['user_id'].toString()),
+      id: json['id'] is int ? json['id'] : (int.tryParse(json['id']?.toString() ?? '0') ?? 0),
+      orderNumber: json['order_number']?.toString() ?? '',
+      userId: json['user_id'] is int ? json['user_id'] : (int.tryParse(json['user_id']?.toString() ?? '0') ?? 0),
       salesName: json['sales_name'] ?? json['user']?['name'],
-      storeId: json['store_id'] is int ? json['store_id'] : int.parse(json['store_id'].toString()),
-      storeName: json['store_name'] ?? json['store']?['store_name'],
+      storeId: json['store_id'] is int ? json['store_id'] : (int.tryParse(json['store_id']?.toString() ?? '0') ?? 0),
+      storeName: json['store_name'] ?? json['store']?['store_name'] ?? 'Toko',
       visitId: json['visit_id'] is int ? json['visit_id'] : int.tryParse(json['visit_id']?.toString() ?? ''),
       totalAmount: (json['total_amount'] is num)
           ? (json['total_amount'] as num).toDouble()
-          : double.tryParse(json['total_amount']?.toString() ?? '0.0') ?? 0.0,
-      orderStatus: json['order_status'] ?? 'approved',
+          : (double.tryParse(json['total_amount']?.toString() ?? '0.0') ?? 0.0),
+      orderStatus: json['order_status']?.toString() ?? 'approved',
+      notes: json['notes']?.toString(),
       createdAt: json['created_at'] != null
-          ? DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now()
+          ? (DateTime.tryParse(json['created_at'].toString())?.toLocal() ?? DateTime.now())
           : DateTime.now(),
       items: itemsList,
-      payment: json['payment'] != null ? PaymentModel.fromJson(json['payment']) : null,
+      payment: (json['payment'] is Map<String, dynamic>)
+          ? PaymentModel.fromJson(json['payment'] as Map<String, dynamic>)
+          : null,
     );
   }
 }
